@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../common/header') %>
+
+  <body>
+    <%- include('../common/nav_bar') %>
+
+      <!-- Header -->
+      <div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
+      <!-- Page content -->
+
+      <div class="container-fluid mt--7">
+        <!-- Table -->
+        <div class="row">
+          <div class="col">
+            <div class="card shadow">
+              <!-- <div class="card-header bg-transparent">
+              <h3 class="mb-0"> Page Title</h3>
+            </div> -->
+              <div class="">
+                <!-- main content -->
+
+
+                <div class="content-wrapper">
+                  <div class="container-xxl flex-grow-1 container-p-y">
+                    <!-- breadcrumbs -->
+                    <h4 class="fw-bold py-3" style="margin-left: 20px;">
+                      <span class="text-muted fw-light"> Home / GPF / </span> GPF Data Entry
+                    </h4>
+                    <!-- breadcrumbs -->
+
+                    <div class="">
+                      <div class="card-body">
+                        <!--================ main content start from here =====================-->
+
+                        <% if (typeof success !=='undefined' ) { %>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong>
+                            <%= success %>
+                              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button> -->
+                          </div>
+                          <% } else if (typeof error !=='undefined' ) { %>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <strong>Error!</strong>
+                              <%= error %>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                  aria-label="Close"></button> -->
+                            </div>
+                            <% } %>
+
+
+
+                              <div class="row">
+                                <div class="col-3">
+                                  <div class="mb-3">
+                                    <label for="">Year</label>
+                                    <select class="form-control" name="year" id="select-year">
+                                      <option value="null">Select the Year</option>
+                                      <option value="2020">2020</option>
+                                      <option value="2021">2021</option>
+                                      <option value="2022">2022</option>
+                                      <option value="2023">2023</option>
+                                      <option value="2024">2024</option>
+                                      <option value="2025">2025</option>
+                                      <option value="2026">2026</option>
+                                      <option value="2027">2027</option>
+                                      <option value="2028">2028</option>
+                                      <option value="2029">2029</option>
+                                      <option value="2030">2030</option>
+                                    </select>
+                                  </div>
+                                  <div class="mb-3 d-flex">
+                                    <input type="search" name="" autocomplete="off" id="search"
+                                      placeholder="serach by name or gpf no" class="form-control w-75" id="">
+                                    <button class="btn ml-1 btn-sm btn-primary w-25"><i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+                                  </div>
+                                  <div id="search-results" class="search-results"></div>
+
+                                  <div class="table-responsive" style="max-height: 50vh; overflow-y: scroll;">
+                                    <table class="table table-bordered" id="datatable">
+                                      <thead>
+                                        <tr>
+                                          <th>Id</th>
+                                          <th>Name</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="emloyee-tbody">
+                                        <% data.forEach((d, index)=> { %>
+                                          <tr class="employee-tr"
+                                            onclick="setData('<%= d.employee_id %>','<%= d.employee_name %>','<%= d.employee_desg %>')">
+                                            <td>
+                                              <%= d.employee_id %>
+                                            </td>
+                                            <td>
+                                              <%= d.employee_name %></a>
+                                            </td>
+                                          </tr>
+                                          <% }); %>
+                                      </tbody>
+                                    </table>
+
+
+                                  </div>
+
+                                </div>
+                                <div class="col-9">
+                                  <div class="">
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <label for="" class="form-label">Name</label>
+                                        <input type="text" class="form-control" disabled name="name" id="name">
+                                      </div>
+                                      <div class="col-6">
+                                        <label for="">Desgination</label>
+                                        <input class="form-control" type="text" disabled name="desgination"
+                                          id="desgination">
+                                      </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end mt-2 align-items-center">
+                                      <label for="">No of Row:</label>
+                                      <input class="border rounded" id="no_of_row"
+                                        style="width: 50px;margin-left: 10px; margin-right: 10px;" type="text"
+                                        value="0">
+                                      <button class="btn btn-sm btn-success" type="button" onclick="repeatData()">Copy
+                                        Same
+                                        Data</button>
+                                    </div>
+                                    <div class="table-responsive mt-3">
+                                      <form action="/gpf-subscription/create" id="" method="post">
+                                        <table class="table table-bordered">
+                                          <thead>
+                                            <tr>
+                                              <th>Locked</th>
+                                              <th>GPF Amount</th>
+                                              <th>GPF Sub Type</th>
+                                              <th>Encashment Date</th>
+                                              <th>Voucher No</th>
+                                              <th>Remark</th>
+                                            </tr>
+                                          </thead>
+                                          <!-- <tbody id="firstbody">
+
+                                        </tbody> -->
+
+                                          <tbody id="tbody">
+
+                                            <input type="hidden" name="id" id="id">
+                                            <input type="hidden" name="status" id="status" value="single">
+                                            <tr>
+                                              <td>
+                                                <input class="" type="checkbox" name="locked[]" id="locked">
+                                              </td>
+                                              <td><input class="form-control" type="text" name="gpf_amount[]"
+                                                  id="gpf_amount">
+                                              </td>
+                                              <td><select class="form-control" name="gpf_sub_type[]" id="gpf_sub_type">
+                                                  <option value="">Select GPF Sub Type</option>
+                                                  <% sub_types.forEach((sub_type, index)=> { %>
+                                                    <option value="<%= sub_type.gpf_sub_type %>">
+                                                      <%= sub_type.gpf_sub_type %>
+                                                    </option>
+                                                    <% }); %>
+                                                </select></td>
+                                              <td><input class="form-control" type="date" name="encashment_date[]"
+                                                  id="encashment_date"></td>
+                                              <td><input class="form-control" type="text" name="voucher_no[]"
+                                                  id="voucher_no">
+                                              </td>
+                                              <td><input class="form-control" type="text" name="remark[]" id="remark">
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                        <div class="row mt-5">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <button class="btn btn-danger btn-block" style="width: 75%"> <i
+                                                  class="fa fa-trash"></i> Cancel </button>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group" style="text-align: right;">
+                                              <button type="submit" class="btn btn-primary" style="width: 75%"> <i
+                                                  class="fa fa-save"></i> Submit </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!--================ main content end here ============================-->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- footer area -->
+                  <!-- footer area -->
+
+
+                  <div class="content-backdrop fade"></div>
+                </div>
+
+
+
+
+                <!-- //main content -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+
+  </body>
+  <%- include('../common/script') %>
+
+    <script>
+
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const searchInput = document.getElementById('search');
+        const searchResultsContainer = document.getElementById('search-results');
+
+        const response = await fetch('/employee');
+        const data = await response.json();
+
+        searchInput.addEventListener('input', function () {
+          const query = this.value.toLowerCase();
+          searchResultsContainer.innerHTML = ''; // Clear previous results
+
+          if (query) {
+            const filteredData = data.data.filter(item => item.employee_name.toLowerCase().includes(query) || item.employee_gpf_no.includes(query) || item.employee_id.includes(query));
+            filteredData.forEach(item => {
+              const resultItem = document.createElement('div');
+              resultItem.className = 'search-result-item';
+              resultItem.textContent = `${item.employee_name} - ${item.employee_gpf_no}`;
+              resultItem.addEventListener('click', function () {
+                document.getElementById('name').value = item.employee_name;
+                document.getElementById('desgination').value = item.employee_desg;
+                document.getElementById('id').value = item.employee_id;
+                searchInput.value = `${item.employee_name} - ${item.employee_gpf_no}`;
+                searchResultsContainer.style.display = 'none';
+              });
+              searchResultsContainer.appendChild(resultItem);
+            });
+            
+            searchResultsContainer.style.display = 'block';
+          } else {
+            searchResultsContainer.style.display = 'none';
+          }
+        });
+      });
+
+
+
+      let alreadySelected = false;
+      let sub_types = [];
+      async function sub_type() {
+        let response = await fetch('/gpf-sub-types/');
+        let data = await response.json();
+        sub_types = data.data;
+      }
+      sub_type();
+      async function repeatData() {
+        document.getElementById('status').value = 'multiple';
+        let remark = document.getElementById('remark').value;
+        let voucher_no = document.getElementById('voucher_no').value;
+        let encashment_date = document.getElementById('encashment_date').value;
+        let gpf_sub_type = document.getElementById('gpf_sub_type').value;
+        let gpf_amount = document.getElementById('gpf_amount').value;
+        let noOfRow = document.getElementById('no_of_row').value;
+        if (remark == '' || voucher_no == '' || encashment_date == '' || gpf_sub_type == '' || gpf_amount == '' || noOfRow == 0) {
+          alert('Please fill all fields');
+          return;
+        }
+        let table = document.querySelector('#tbody');
+        for (let i = 0; i < noOfRow; i++) {
+          let tr = document.createElement('tr');
+          let td = document.createElement('td');
+          let td1 = document.createElement('td');
+          let td2 = document.createElement('td');
+          let td3 = document.createElement('td');
+          let td4 = document.createElement('td');
+          let td5 = document.createElement('td');
+          let input = document.createElement('input');
+          input.setAttribute('type', 'checkbox');
+          input.setAttribute('name', 'isLocked[]');
+          let input1 = document.createElement('input');
+          // input is select
+          let input2 = document.createElement('select');
+
+          // add options to select
+          if (sub_types.length == 0) {
+            sub_type();
+          }
+          sub_types.forEach((sub_type, index) => {
+            let option = document.createElement('option');
+            option.value = sub_type.gpf_sub_type;
+            option.textContent = sub_type.gpf_sub_type;
+            input2.appendChild(option);
+          });
+          let input3 = document.createElement('input');
+          let input4 = document.createElement('input');
+          let input5 = document.createElement('input');
+          input1.setAttribute('class', 'form-control');
+          input1.setAttribute('type', 'text');
+          input1.setAttribute('name', 'gpf_amount[]');
+          // input1.setAttribute('id', 'gpf_amount');
+          input1.value = gpf_amount;
+          input2.setAttribute('class', 'form-control');
+          input2.setAttribute('name', 'gpf_sub_type[]');
+          // input2.setAttribute('id', 'gpf_sub_type');
+          input2.value = gpf_sub_type;
+          input3.setAttribute('class', 'form-control');
+          input3.setAttribute('type', 'date');
+          input3.setAttribute('name', 'encashment_date[]');
+          // input3.setAttribute('id', 'encashment_date');
+          input3.value = encashment_date;
+          input4.setAttribute('class', 'form-control');
+          input4.setAttribute('type', 'text');
+          input4.setAttribute('name', 'voucher_no[]');
+          // input4.setAttribute('id', 'voucher_no');
+          input4.value = voucher_no;
+          input5.setAttribute('class', 'form-control');
+          input5.setAttribute('type', 'text');
+          input5.setAttribute('name', 'remark[]');
+          // input5.setAttribute('id', 'remark');
+          input5.value = remark;
+          td.appendChild(input);
+          td1.appendChild(input1);
+          td2.appendChild(input2);
+          td3.appendChild(input3);
+          td4.appendChild(input4);
+          td5.appendChild(input5);
+          tr.appendChild(td);
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tr.appendChild(td3);
+          tr.appendChild(td4);
+          tr.appendChild(td5);
+          table.appendChild(tr);
+        }
+
+      }
+
+      document.getElementById('select-year').addEventListener('change', () => {
+        let name = document.getElementById('name').value
+        let des = document.getElementById('desgination').value
+        let id = document.getElementById('id').value
+        setData(id = id, name = name, des = des);
+      });
+
+      async function setData(id, name, des) {
+        let year = document.getElementById('select-year').value;
+        if ((!id.trim() == "" || !name.trim() == "" || !des.trim() == "") && year == 'null') {
+          alert('Please select the year');
+          return;
+        }
+        document.getElementById('name').value = name;
+        document.getElementById('desgination').value = des;
+        document.getElementById('id').value = id;
+        const response = await fetch(`/gpf-subscription/get-all-subcription`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ employee_id: id, year: year })
+        });
+        const data = await response.json();
+        if (data.success) {
+          let table = document.querySelector('#firstbody');
+          table.innerHTML = '';
+          console.log(data);
+          data.data.forEach((d, index) => {
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
+            let td6 = document.createElement('td');
+            if (sub_types.length == 0) {
+              sub_type();
+            }
+            let input1 = document.createElement('input');
+            let input2 = document.createElement('input');
+            let input3 = document.createElement('select');
+            let input4 = document.createElement('input');
+            let input5 = document.createElement('input');
+            let input6 = document.createElement('input');
+            sub_types.forEach((sub_type, index) => {
+              let option = document.createElement('option');
+              option.value = sub_type.gpf_sub_type;
+              option.textContent = sub_type.gpf_sub_type;
+              input3.appendChild(option);
+            });
+            // input1.setAttribute('class', 'form-control');
+            input1.setAttribute('type', 'checkbox');
+            input1.checked = d.isLocked;
+            input1.disabled = d.isLocked ? true : false;
+            input1.onclick = async function () {
+              // console.log(d._id);
+              let response = await fetch(`/gpf-subscription/update-isLocked/${d._id}/${input1.checked}`);
+              let data = await response.json();
+              // console.log(data);
+            };
+            input2.setAttribute('class', 'form-control');
+            input2.setAttribute('type', 'text');
+            input2.value = d.gpf_subs_amount;
+            input3.setAttribute('class', 'form-control');
+            input3.value = d.gpf_subs_type;
+            input4.setAttribute('class', 'form-control');
+            input4.setAttribute('type', 'date');
+            const dateString = d.gpf_subs_enscashment_date; // Assuming this is your ISO 8601 date string
+            const dateOnly = dateString.split('T')[0]; // Extracting the date part
+            input4.value = dateOnly;
+            input5.setAttribute('class', 'form-control');
+            input5.setAttribute('type', 'text');
+            input5.value = d.gpf_subs_vocher_no;
+            input6.setAttribute('class', 'form-control');
+            input6.setAttribute('type', 'text');
+            input6.value = d.gpf_subs_remarks;
+            td1.appendChild(input1);
+            td2.appendChild(input2);
+            td3.appendChild(input3);
+            td4.appendChild(input4);
+            td5.appendChild(input5);
+            td6.appendChild(input6);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            tr.appendChild(td6);
+            table.insertBefore(tr, table.firstChild);
+          });
+          alreadySelected = true;
+          return;
+        }
+        return;
+      }
+
+      let today = new Date();
+      // Format the date as YYYY-MM-DD for the input field
+      let formattedDate = today.toISOString().substr(0, 10);
+      // Set the input field value to today's date
+      document.getElementById("encashment_date").value = formattedDate;
+      // Display today's date
+
+
+      var rows = document.querySelectorAll('.employee-tr');
+      // Add click event listener to each row
+      rows.forEach(function (row) {
+        row.addEventListener('click', function () {
+          // Remove the 'selected' class from all rows
+          rows.forEach(function (r) {
+            r.classList.remove('table-active');
+          });
+
+          // Add the 'selected' class to the clicked row
+          this.classList.add('table-active');
+        });
+      });
+    </script>
+
+</html>

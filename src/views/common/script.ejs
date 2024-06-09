@@ -1,0 +1,69 @@
+
+</div>
+</div>
+<!--   Core   -->
+<script src="/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<script src="/assets/vendor/js-cookie/js.cookie.js"></script>
+<script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+<script src="/assets/js/plugins/chart.js/dist/Chart.min.js"></script>
+<script src="/assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
+<!--   Argon JS   -->
+<script src="/assets/js/argon-dashboard.min.js?v=1.1.2"></script>
+<!-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> -->
+<script src="assets/js/sweetalert.min.js"></script>
+<!-- <script src="assets/plugins/bootstrap-sweet-alerts/sweet-alert.min.js"></script> -->
+<script src="/assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <!-- Argon JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+
+<script src="/assets/js/argon.js?v=1.1.0"></script>
+<!-- Demo JS - remove this in your project -->
+<!-- <script src="/assets/js/demo.min.js"></script> -->
+
+
+<script type="text/javascript">
+  function cancel(){
+    if (confirm('Are you sure want to cancel?')) {
+
+        window.location=window.history.go(-1);
+
+    }
+  }
+  function SubmitForm(){
+    if (confirm('Are you sure want to Submit?')) {
+
+        // document.getElementsByTagName("form")[0].submit();
+        document.getElementById("myForm").submit();
+
+    }
+  }
+
+  $(document).ready(function() {
+      $('.select2').select2();
+  });
+</script>
+<script>
+
+var refreshId = setInterval(function()
+{
+    jQuery("#responsecontainer").fadeOut("slow").load('core/manager/keepalive.php').fadeIn("slow");
+}, 3000);
+
+
+
+</script>
+</body>
+
+</html>

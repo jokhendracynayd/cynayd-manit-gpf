@@ -1,0 +1,200 @@
+
+ <!DOCTYPE html>
+ <html>
+
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="MANIT WEB Services">
+   <meta name="author" content="MWS">
+   <title>GPF</title>
+   <!-- Favicon -->
+   <!-- <link rel="icon" href="./assets/img/brand/favicon.ico" type="image/png"> -->
+   <!-- Fonts -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+   <!-- Icons -->
+   <link rel="stylesheet" href="./assets/vendor/nucleo/css/nucleo.css" type="text/css">
+   <link rel="stylesheet" href="./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+   <!-- Page plugins -->
+   <!-- Argon CSS -->
+   <link rel="stylesheet" href="./assets/css/argon.css?v=1.1.0" type="text/css">
+   <link rel="stylesheet" type="text/css" href="./home/assets/css/style.css">
+   <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+     <style type="text/css">
+    
+        body { 
+          background: url('https://www.kdnuggets.com/wp-content/uploads/tree-todd-quackenbush-unsplash.jpg') no-repeat center center fixed; 
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+
+      </style>
+ </head>
+
+ <body>
+   <!-- Navabr -->
+   <nav id="navbar-main" class="navbar navbar-horizontal navbar-main navbar-expand-lg navbar-dark">
+     <div class="container-fluid">
+       <a class="navbar-brand" href="index">
+         <!-- <img src="./assets/img/brand/cynayd_logo_dark.png" style="width: 150px; height: 50px;" width="100px"> -->
+       </a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
+         <div class="navbar-collapse-header">
+           <div class="row">
+             <div class="col-6 collapse-brand">
+               <a href="./pages/dashboards/dashboard.html">
+                 <!-- <img src="./assets/img/brand/cynayd.png"> -->
+               </a>
+             </div>
+             <div class="col-6 collapse-close">
+               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                 <span></span>
+                 <span></span>
+               </button>
+             </div>
+           </div>
+         </div>
+
+         <hr class="d-lg-none" />
+         <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+           <li class="nav-item">
+             <a class="nav-link nav-link-icon" href="https://www.facebook.com/cynayds/" target="_blank" data-toggle="tooltip" title="" data-original-title="Like us on Facebook">
+               <i class="fab fa-facebook-square"></i>
+               <span class="nav-link-inner--text d-lg-none">Facebook</span>
+             </a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link nav-link-icon" href="https://www.instagram.com/cynayd" target="_blank" data-toggle="tooltip" title="" data-original-title="Follow us on Instagram">
+               <i class="fab fa-instagram"></i>
+               <span class="nav-link-inner--text d-lg-none">Instagram</span>
+             </a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link nav-link-icon" href="https://in.pinterest.com/cynayds" target="_blank" data-toggle="tooltip" title="" data-original-title="Follow us on Twitter">
+               <i class="fab fa-pinterest"></i>
+               <span class="nav-link-inner--text d-lg-none">Pinterest</span>
+             </a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link nav-link-icon" href="https://www.youtube.com/channel/UCJ-nNFMQerqoApmYcd2tffw/channels" target="_blank" data-toggle="tooltip" title="" data-original-title="Star us on Github">
+               <i class="fab fa-youtube"></i>
+               <span class="nav-link-inner--text d-lg-none">YouTube</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link nav-link-icon" href="https://in.linkedin.com/company/cynayd" target="_blank" data-toggle="tooltip" title="" data-original-title="Star us on Github">
+               <i class="fab fa-linkedin"></i>
+               <span class="nav-link-inner--text d-lg-none">LinkedIn</span>
+             </a>
+           </li>
+         </ul>
+       </div>
+     </div>
+   </nav>
+
+   <!-- Main content -->
+   <div class="main-content">
+     <!-- Header -->
+     <div class="header pt-0 pb-7">
+ 
+       <div class="container-fluid">
+         <div class="header-body">
+
+           <div class="row align-items-center">
+             <div class="col-lg-8 d-none d-lg-block">
+         
+             </div>
+             <div class="col-lg-4">
+                 <div class="card">
+                     <div class="card-body">
+                 
+                      
+                        <div class="text-center text-muted mb-4">
+                          <small> Sign in with credentials</small>
+                        </div>
+
+                        <% if (typeof success !== 'undefined') { %>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong>
+                            <%= success %>
+                              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button> -->
+                          </div>
+                          <% } else if (typeof error !== 'undefined') { %>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <strong>Error!</strong>
+                              <%= error %>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                  aria-label="Close"></button> -->
+                            </div>
+                            <% } %>
+                        <!-- login form -->
+                        <form method="post" action="/users/login">
+                          <div class="form-group focused">
+                            
+                              <div class="input-group input-group-alternative">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                              </div>
+                              <input class="form-control" placeholder="email" name="email" type="text">
+                            </div>
+
+                            <!-- <div class="text-muted text-xs text-right"> <a href="forgot-userid">Forgot User Id / Employee Id?</a></div> -->
+                          </div>
+
+                          <div class="form-group focused">
+                        
+
+                            <div class="input-group input-group-alternative">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                              </div>
+                              <input class="form-control" name="password" placeholder="Password" type="password">
+                            </div>
+                            <div class="text-muted text-xs text-right"> <a href="forgot-password">Forgot Password?</a> </div>
+                          </div>
+                          <!-- <div class="col-sm-8 col-sm-offset-2">
+                            <div class="g-recaptcha" name="recaptcha" data-sitekey="6LfT3tMZAAAAAGSOGWo-vxX9sszDc17GOG8caupm"></div><br>
+                          </div> -->
+                          <div class="form-group">
+                            <input id="remberthisdevice" type="checkbox" name="remberthisdevice"> Remember Me
+                           
+                          </div>
+                         
+                          <div class="form-group">
+                            <button id="submit" class="btn btn-primary btn-block" type="submit" name="submit"> Login </button>
+                          </div>
+                        </form>
+                        <!-- //login form -->
+                     </div>
+                   </div>
+                </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- Argon Scripts -->
+   <!-- Core -->
+   <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
+   <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="./assets/vendor/js-cookie/js.cookie.js"></script>
+   <script src="./assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+   <script src="./assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+   <!-- Optional JS -->
+   <script src="./assets/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+   <!-- Argon JS -->
+   <script src="./assets/js/argon.js?v=1.1.0"></script>
+   <!-- Demo JS - remove this in your project -->
+   <script src="./assets/js/demo.min.js"></script>
+ </body>
+
+<script type="text/javascript">
+
+</script>
+ </html>

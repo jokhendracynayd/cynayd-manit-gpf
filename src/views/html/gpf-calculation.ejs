@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../common/header') %>
+
+  <body>
+    <%- include('../common/nav_bar') %>
+
+      <!-- Header -->
+      <div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
+      <!-- Page content -->
+
+      <div class="container-fluid mt--7">
+        <!-- Table -->
+        <div class="row">
+          <div class="col">
+            <div class="card shadow">
+              <!-- <div class="card-header bg-transparent">
+              <h3 class="mb-0"> Page Title</h3>
+            </div> -->
+              <div class="">
+                <!-- main content -->
+
+
+                <div class="content-wrapper">
+                  <div class="container-xxl flex-grow-1 container-p-y">
+                    <!-- breadcrumbs -->
+                    <h4 class="fw-bold py-3" style="margin-left: 20px;">
+                      <span class="text-muted fw-light"> Home / GPF / </span> GPF Calculations
+                    </h4>
+                    <!-- breadcrumbs -->
+
+                    <div class="">
+                      <div class="card-body">
+                        <!--================ main content start from here =====================-->
+
+                        <% if (typeof success !=='undefined' ) { %>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong>
+                            <%= success %>
+                              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button> -->
+                          </div>
+                          <% } else if (typeof error !=='undefined' ) { %>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <strong>Error!</strong>
+                              <%= error %>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                  aria-label="Close"></button> -->
+                            </div>
+                            <% } %>
+
+
+
+                              <div class="row">
+                                <div class="col-3">
+                                  <div class="mb-3 d-flex">
+                                    <input type="search" name="" id="search" placeholder="serach by name or gpf no"
+                                      class="form-control w-75" id="">
+                                    <button class="btn ml-1 btn-sm btn-primary w-25"><i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+                                  </div>
+                                  <div id="search-results" class="search-results"></div>
+                                  <div class="mb-3">
+                                    <label for="">Select Employee from list</label>
+                                  </div>
+
+                                  <div class="table-responsive" style="max-height: 80vh; overflow-y: scroll;">
+                                    <table class="table table-bordered" id="datatable">
+                                      <thead>
+                                        <tr>
+                                          <th>Id</th>
+                                          <th>Name</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="emloyee-tbody">
+                                        <% employees.forEach((employee, index)=> { %>
+                                          <tr
+                                            onclick="setData('<%= employee.employee_id %>','<%= employee.employee_name %>','<%= employee.employee_desg %>')">
+                                            <td>
+                                              <%= employee.employee_id %>
+                                            </td>
+                                            <td>
+                                              <%= employee.employee_name %></a>
+                                            </td>
+                                          </tr>
+                                          <% }); %>
+                                      </tbody>
+                                    </table>
+                                  </div>
+
+                                </div>
+                                <div class="col-9">
+                                  <form action="/generate-pdf" method="post">
+                                    <div class="row">
+                                      <div class="col-6 d-flex align-items-center">
+                                        <input type="checkbox" onclick="enableStart()" class="form-check-input" name=""
+                                          id="">
+                                        <label for="" class="form-check-label">Start Month:</label>
+                                        <select name="startmonth" disabled id="startmonth" class="form-control"
+                                          style="width: 40%;margin-left: 10px;height: 40px;">
+                                          <option value="">Select month</option>
+                                          <option value="1">January</option>
+                                          <option value="2">February</option>
+                                          <option value="3">March</option>
+                                          <option value="4">April</option>
+                                          <option value="5">May</option>
+                                          <option value="6">June</option>
+                                          <option value="7">July</option>
+                                          <option value="8">August</option>
+                                          <option value="9">September</option>
+                                          <option value="10">October</option>
+                                          <option value="11">November</option>
+                                          <option value="12">December</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-6 d-flex align-items-center">
+                                        <input type="checkbox" onclick="enableEnd()" class="form-check-input" name=""
+                                          id="">
+                                        <label for="" class="form-check-label"> Start Year:</label>
+                                        <select name="startyear" disabled id="startyear" class="form-control"
+                                          style="width: 35%;margin-left: 10px;height: 40px;">
+                                          <option value="">Select year</option>
+                                          <option value="2020">2020</option>
+                                          <option value="2021">2021</option>
+                                          <option value="2022">2022</option>
+                                          <option value="2023">2023</option>
+                                          <option value="2024">2024</option>
+                                          <option value="2025">2025</option>
+                                          <option value="2026">2026</option>
+                                          <option value="2027">2027</option>
+                                          <option value="2028">2028</option>
+                                          <option value="2029">2029</option>
+                                          <option value="2030">2030</option>
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                      <div class="col-6 d-flex align-items-center">
+                                        <input type="checkbox" onclick="endenableStart()" class="form-check-input"
+                                          name="" id="">
+                                        <label for="" class="form-check-label">End Month:</label>
+                                        <select name="endmonth" disabled id="endmonth" class="form-control"
+                                          style="width: 40%;margin-left: 10px;height: 40px;">
+                                          <option value="">Select month</option>
+                                          <option value="1">January</option>
+                                          <option value="2">February</option>
+                                          <option value="3">March</option>
+                                          <option value="4">April</option>
+                                          <option value="5">May</option>
+                                          <option value="6">June</option>
+                                          <option value="7">July</option>
+                                          <option value="8">August</option>
+                                          <option value="9">September</option>
+                                          <option value="10">October</option>
+                                          <option value="11">November</option>
+                                          <option value="12">December</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-6 d-flex align-items-center">
+                                        <input type="checkbox" onclick="endenableEnd()" class="form-check-input" name=""
+                                          id="">
+                                        <label for="" class="form-check-label"> End Year:</label>
+                                        <select name="endyear" disabled id="endyear" class="form-control"
+                                          style="width: 35%;margin-left: 10px;height: 40px;">
+                                          <option value="">Select year</option>
+                                          <option value="2020">2020</option>
+                                          <option value="2021">2021</option>
+                                          <option value="2022">2022</option>
+                                          <option value="2023">2023</option>
+                                          <option value="2024">2024</option>
+                                          <option value="2025">2025</option>
+                                          <option value="2026">2026</option>
+                                          <option value="2027">2027</option>
+                                          <option value="2028">2028</option>
+                                          <option value="2029">2029</option>
+                                          <option value="2030">2030</option>
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                      <div class="col-6">
+                                        <input type="hidden" id="id" name="id">
+                                        <label for="" class="form-label">Name</label>
+                                        <input type="text" class="form-control" disabled name="name" id="name">
+                                      </div>
+                                      <div class="col-6">
+                                        <label for="">Desgination</label>
+                                        <input class="form-control" type="text" disabled name="desgination"
+                                          id="desgination">
+                                      </div>
+                                    </div>
+
+                                    <div class="row mt-3 w-100 d-flex justify-content-end">
+                                      <button class="btn btn-primary" type="button" onclick="showOpening()">Show
+                                        Calculations <i class="fa-solid fa-angles-right"></i></button>
+                                      <div
+                                        class="d-flex justify-content-center bg-success rounded p-2 align-items-center"
+                                        style="gap: 10px; width: 40%;">
+
+                                        <label for="" class="text-white">Opening Balance:</label>
+                                        <input type="text" value="" id="opening_balance" name="opening_balance"
+                                          placeholder="0.00" class="form-control" style="width: 40%;">
+                                        <!-- <button class="btn btn-primary">Calculte</button> -->
+                                      </div>
+                                    </div>
+
+                                    <div class="row mt-5">
+                                      <div class="container w-75">
+                                        <div class="row d-flex align-items-center mb-2">
+                                          <div class="col-7">
+                                            <label for="">Opening Balance as on Apnl:</label>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="text" class="form-control" name="" id="apnl" value="0.00">
+                                          </div>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                          <div class="col-7">
+                                            <label for="">Subscription Deposite during the year:</label>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="text" class="form-control" name="subscription"
+                                              id="subscription" value="0.00">
+                                          </div>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                          <div class="col-7">
+                                            <label for="">Recovery Refund during the year:</label>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="text" class="form-control" name="refund" id="refund"
+                                              value="0.00">
+                                          </div>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                          <div class="col-7">
+                                            <label for="">GPF Withdrawal during the year:</label>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="text" class="form-control" name="withdrawal" id="withdrawal"
+                                              value="0.00">
+                                          </div>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+                                          <div class="col-7">
+                                            <label for="">Interst for the year:</label>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="text" class="form-control" name="interest_year"
+                                              id="interst-year" value="0.00">
+                                          </div>
+                                        </div>
+                                        <div class="row d-flex align-items-center mb-2">
+
+                                          <div class="col-7">
+                                            <label for="" class="text-success">Closing Balance for the year:</label>
+                                          </div>
+                                          <div class="col-5">
+                                            <input type="text" class="form-control" name="closing_balance"
+                                              id="closing_balance" value="0.00">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="row w-100 mt-2">
+                                      <div class="container d-flex justify-content-end">
+                                        <button class="btn btn-secondary" disabled id="printpreview">Print
+                                          Preview</button>
+
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <!--================ main content end here ============================-->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- footer area -->
+                  <!-- footer area -->
+
+
+                  <div class="content-backdrop fade"></div>
+                </div>
+
+
+
+
+                <!-- //main content -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+
+  </body>
+  <%- include('../common/script') %>
+
+    <script>
+
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const searchInput = document.getElementById('search');
+        const searchResultsContainer = document.getElementById('search-results');
+
+        const response = await fetch('/employee');
+        const data = await response.json();
+
+        searchInput.addEventListener('input', function () {
+          const query = this.value.toLowerCase();
+          searchResultsContainer.innerHTML = ''; // Clear previous results
+
+          if (query) {
+            const filteredData = data.data.filter(item => item.employee_name.toLowerCase().includes(query) || item.employee_gpf_no.includes(query) || item.employee_id.includes(query));
+            filteredData.forEach(item => {
+              const resultItem = document.createElement('div');
+              resultItem.className = 'search-result-item';
+              resultItem.textContent = `${item.employee_name} - ${item.employee_gpf_no}`;
+              resultItem.addEventListener('click', function () {
+                document.getElementById('name').value = item.employee_name;
+                document.getElementById('desgination').value = item.employee_desg;
+                document.getElementById('id').value = item.employee_id;
+                searchInput.value = `${item.employee_name} - ${item.employee_gpf_no}`;
+                searchResultsContainer.style.display = 'none';
+              });
+              searchResultsContainer.appendChild(resultItem);
+            });
+
+            searchResultsContainer.style.display = 'block';
+          } else {
+            searchResultsContainer.style.display = 'none';
+          }
+        });
+      });
+
+
+
+
+
+      function enableStart() {
+        if (document.getElementById('startmonth').disabled) {
+          document.getElementById('startmonth').disabled = false;
+        } else {
+          document.getElementById('startmonth').disabled = true;
+        }
+      }
+
+      function enableEnd() {
+        if (document.getElementById('startyear').disabled) {
+          document.getElementById('startyear').disabled = false;
+        } else {
+          document.getElementById('startyear').disabled = true;
+        }
+      }
+
+      function endenableStart() {
+        if (document.getElementById('endmonth').disabled) {
+          document.getElementById('endmonth').disabled = false;
+        } else {
+          document.getElementById('endmonth').disabled = true;
+        }
+      }
+
+      function endenableEnd() {
+        if (document.getElementById('endyear').disabled) {
+          document.getElementById('endyear').disabled = false;
+        } else {
+          document.getElementById('endyear').disabled = true;
+        }
+      }
+
+      function setData(id, name, desg) {
+        document.getElementById('name').value = name;
+        document.getElementById('desgination').value = desg;
+        document.getElementById('id').value = id;
+      }
+
+      async function showOpening() {
+        let startmonth = document.getElementById('startmonth').value;
+        let startyear = document.getElementById('startyear').value;
+        let endmonth = document.getElementById('endmonth').value;
+        let endyear = document.getElementById('endyear').value;
+        let name = document.getElementById('name').value;
+        let desg = document.getElementById('desgination').value;
+        let id = document.getElementById('id').value
+
+        if (startmonth == '' || startyear == '' || id == '' || name == '' || desg == '' || endmonth == '' || endyear == '') {
+          alert('Please select all fields');
+          return;
+        }
+
+        let data = {
+          startmonth: startmonth,
+          startyear: startyear,
+          endyear: endyear,
+          endmonth: endmonth,
+          employee_id: id,
+          name: name,
+          desg: desg
+        }
+        // console.log(data);
+
+        let response = await fetch('/gpf-calculation/calculate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        let result = await response.json();
+        // console.log(result);
+        if (result.success) {
+          if (result.data.opening_balance > 0) {
+            document.getElementById('printpreview').disabled = false;
+          }
+          document.getElementById('opening_balance').value = result.data.opening_balance;
+          document.getElementById('apnl').value = result.data.opening_balance;
+          document.getElementById('subscription').value = result.data.totalSubscription;
+          document.getElementById('refund').value = result.data.totalRefund;
+          document.getElementById('withdrawal').value = result.data.totalWithdrawal;
+          document.getElementById('interst-year').value = result.data.interest;
+          document.getElementById('closing_balance').value = result.data.closing_balance;
+        } else {
+          alert(result.msg);
+        }
+      }
+
+      // async function printPreview(){
+      //   let name = document.getElementById('name').value;
+      //   let deg = document.getElementById('desgination').value;
+      //   let id = document.getElementById('id').value;
+      //   let opening_balance = document.getElementById('opening_balance').value;
+      //   let subscription = document.getElementById('subscription').value;
+      //   let refund = document.getElementById('refund').value;
+      //   let withdrawal = document.getElementById('withdrawal').value;
+      //   let interest = document.getElementById('interst-year').value;
+      //   let closing_balance = document.getElementById('closing_balance').value;
+      //   [name,deg,id,opening_balance,subscription,refund,withdrawal,interest,closing_balance].forEach((item)=>{
+      //     if(item == '' || item == undefined || item == null){
+      //       alert('Some fields are empty. Please fill all fields to print preview');
+      //       return;
+      //     }
+      //   });
+      //   const response = await fetch('/generate-pdf',{
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body: JSON.stringify({
+      //       name: name,
+      //       deg: deg,
+      //       id: id,
+      //       opening_balance: opening_balance,
+      //       subscription: subscription,
+      //       refund: refund,
+      //       withdrawal: withdrawal,
+      //       interest: interest,
+      //       closing_balance: closing_balance
+      //     })
+      //   })
+      // }
+
+
+    </script>
+
+</html>

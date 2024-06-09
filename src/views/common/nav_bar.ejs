@@ -1,0 +1,146 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(
+  60deg, #4939bd 0, #1a174d 100%) !important;">
+  <!-- <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> -->
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Establishment
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link active text-dark" href="/add-establishment">
+             Add Establishment <i class="fa-solid text-dark fa-arrow-right"></i>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="nav-link active text-dark" href="/establishment/view">
+               Establishments <i class="fa-solid text-dark fa-arrow-right"></i>
+             </a>
+          <!-- <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a> -->
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Employee
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link active text-dark" href="/add-employee"> Add Employee <i class="fa-solid text-dark fa-arrow-right"></i>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="nav-link active text-dark" href="/employee/view"> Employee <i class="fa-solid text-dark fa-arrow-right"></i>
+           </a>
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          GPF Ledger
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link active text-dark" href="/gpf-ladger"> GPF Data Entry <i class="fa-solid text-dark fa-arrow-right"></i>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="nav-link active text-dark" href="/gpf-calculation"> GPF Calculations <i class="fa-solid text-dark fa-arrow-right"></i>
+          </a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          GPF Sub Type
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link active text-dark" href="/gpf-sub-type"> Add GPF Sub Type <i class="fa-solid text-dark fa-arrow-right"></i>
+          </a>
+        </div>
+      </li>
+
+       <!-- this is for more  -->
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link active text-dark" href="/gpf-interest-rate"> GPF Interest Rate <i class="fa-solid text-dark fa-arrow-right"></i>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="nav-link active text-dark" href="/upload-xlsx-file"> Upload Excel Data <i class="fa-solid text-dark fa-arrow-right"></i>
+          </a>
+        </div>
+      </li>
+       <!-- this is end for more -->
+
+      <!-- <li class="nav-item active">
+        <a class="nav-link active" href="/gpf-interest-rate"> GPF Interest Rate 
+        </a>
+      </li> -->
+
+      <!-- <li class="nav-item active">
+        <a class="nav-link active" href="/gpf-interest-rate"> Upload Excel Data 
+        </a>
+      </li> -->
+
+
+    </ul>
+    <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <div class="media align-items-center">
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Image placeholder"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHg9p0gag6fnVtm54yVMk3uKp7N1CtIMndKDOnTvGegw&s">
+            </span>
+            <div class="media-body ml-2 d-none d-lg-block">
+              <span class="mb-0 text-sm  font-weight-bold">
+                <?= $login_master_full_name ?>
+              </span>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-header noti-title">
+            <h6 class="text-overflow m-0">Welcome!</h6>
+          </div>
+          <a href="page-profile" class="dropdown-item">
+            <i class="ni ni-single-02"></i>
+            <span>My profile</span>
+          </a>
+          <a href="page-setting" class="dropdown-item">
+            <i class="ni ni-settings-gear-65"></i>
+            <span>Settings</span>
+          </a>
+          <!-- <a href="#!" class="dropdown-item">
+                <i class="ni ni-calendar-grid-58"></i>
+                <span>Activity</span>
+              </a> -->
+          <a href="page-support" class="dropdown-item">
+            <i class="ni ni-support-16"></i>
+            <span>Support</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="/logout" class="dropdown-item">
+            <i class="ni ni-user-run"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

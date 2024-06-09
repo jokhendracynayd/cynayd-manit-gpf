@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPF Account Statement</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+    .header-content {
+      text-align: center;
+      width: 92%;
+      /* border: 1px solid #ddd; */
+    }
+    section {
+      padding: 20px;
+      /* border: 1px solid #ddd; */
+    }
+
+    h2,
+    h3 {
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .employee-details::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .employee-details p {
+      float: left;
+      margin-right: 10px;
+    }
+
+
+    .employee-details p:first-child {
+      font-weight: bold;
+    }
+
+    .table-container {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+
+    th,
+    td {
+      padding: 5px;
+      /* border: 1px solid #ddd; */
+      /* text-align: left; */
+    }
+
+    tr {
+      height: 45px;
+    }
+
+    th {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    th:first-child {
+      border-right: 1px solid black;
+    }
+
+    td:first-child {
+      border-right: 1px solid black;
+    }
+
+    thead {
+      border-bottom: 1px solid black;
+    }
+
+    td:nth-child(2) {
+      text-align: right;
+    }
+
+    .tr-border {
+      border-top: 1px solid black;
+    }
+
+    .signature {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // window.print();
+    })
+  </script>
+</head>
+
+<!-- <body> -->
+<div class="container">
+  <header>
+    <div class="header-content">
+      <h1>Maulana Azad National Institute Of Technology</h1>
+      <p>Bhopal-462003(M.P.)</p>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/en/4/4f/Maulana_Azad_National_Institute_of_Technology_Logo.png"
+      alt="">
+  </header>
+
+  <section class="statement">
+    <h2>Statement Showing Abstract of GPF A/c</h2>
+    <h3>For The Year 2020-2021</h3>
+    <div class="employee-details">
+      <p>NAME OF EMPLOYEE:</p>
+      <p>
+        <%= data.employee_name.toUpperCase() %>
+      </p>
+    </div>
+    <div class="employee-details">
+      <p>DESIGNATION:</p>
+      <p>
+        <%= data.employee_designation.toUpperCase() %>
+      </p>
+    </div>
+    <div class="employee-details">
+      <p>GPF No.:</p>
+      <p>
+        <%= data.employee_gpf_no %>
+      </p>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>SUBSCRIBERS CONTRIBUTION 2020-21</th>
+            <th>Amount (Rs.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= data.start_date %></td>
+            <td>
+              <%= data.employee_opening_balance %>
+            </td>
+          </tr>
+          <tr>
+            <td>GPF & Subscriptions</td>
+            <td>
+              <%= data.employee_gpf_subscriptions %>
+            </td>
+          </tr>
+          <tr>
+            <td>Recovery of Advance</td>
+            <td>
+              <%= data.employee_recovery %>
+            </td>
+          </tr>
+          <tr>
+            <td>Interest</td>
+            <td>
+              <%= data.employee_interest %>
+            </td>
+          </tr>
+          <tr class="tr-border">
+            <td>Total</td>
+            <td>
+              <%= data.employee_total %>
+            </td>
+          </tr>
+          <tr class="tr-border">
+            <td>Less Withdrawals</td>
+            <td>
+              <%= data.employee_withdrawal %>
+            </td>
+          </tr>
+          <tr class="tr-border">
+            <td><%= data.end_date%></td>
+            <td>
+              <%= data.employee_closing_balance %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="signature">
+      <p>Dealing Asstt.</p>
+      <p>O.S. A/C</p>
+    </div>
+
+  </section>
+</div>
+</body>
+
+</html>

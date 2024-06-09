@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../common/header') %>
+<body>
+  <%- include('../common/nav_bar') %>
+  
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <!-- <div class="card-header bg-transparent">
+              <h3 class="mb-0"> Page Title</h3>
+            </div> -->
+            <div class="card-body">
+                <!-- main content -->
+
+
+                <div class="content-wrapper">
+                  <div class="container-xxl flex-grow-1 container-p-y">
+                      <!-- breadcrumbs -->
+                     <h4 class="fw-bold py-3 mb-4">
+                       <span class="text-muted fw-light"> Home / Employee / </span> View Establishment
+                     </h4>
+                   <!-- breadcrumbs -->
+
+
+                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Update Establishment</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" id="updateform">
+                            <input type="hidden" name="idestablishment_master" id="idestablishment_master">
+                            <div class="form-group">
+                              <label>Establishment Name</label>
+                              <input type="text" class="form-control" id="establishment_name" name="establishment_name">
+                            </div>
+                            <div class="form-group">
+                              <label> Establishment Adress </label>
+                              <input type="text" class="form-control" id="establishment_address" name="establishment_address">
+                            </div>
+                            
+                            <div class="form-group">
+                              <label> Make Default </label>
+                              <select class="form-control" name="establishment_default_status" id="establishment_default_status">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                              </select>
+                            </div>
+                            <br>
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <input type="submit" value="Save Change" class="btn btn-primary">
+                            </div>
+
+
+                          </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                   
+                   <div class="">
+                     <div class="card-body">
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="datatable">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Establishment Id</th>
+                                  <th>Employee Name</th>
+                                  <th>Establishment Address</th>
+                                  <th>Establishment Default Status</th>
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <% establishments.forEach((establishment, index) => { %>
+                              <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= establishment.idestablishment_master %></td>
+                                <td><%= establishment.establishment_name %></td>
+                                <td><%= establishment.establishment_address %></td>
+                                <td><%= establishment.establishment_default_status %></td>
+                                <td>
+                                  <!-- Add actions buttons or links here -->
+                                  <i class="fa-regular fa-pen-to-square" onclick="fetchEstablishment('<%= establishment._id %>')"></i>
+                                </td>
+                              </tr>
+                            <% }); %>
+                            
+                          </tbody>
+                        </table>
+                      
+                        
+                    </div>
+
+
+
+                      </div>
+                     </div>
+                   </div>
+                   <!-- footer area -->
+                   <!-- footer area -->
+                
+       
+                   <div class="content-backdrop fade"></div>
+                 </div>
+
+
+
+
+                <!-- //main content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+      <!-- Footer -->
+   
+</body>
+<%- include('../common/script') %>
+
+
+<script>
+  async function fetchEstablishment(establishmentId) {
+    console.log(establishmentId);
+    const response = await fetch(`/establishment/${establishmentId}`);
+    const establisment = await response.json();
+    // console.log(establisment?.data);
+    // // now show the model with the employee data
+    let modal = new bootstrap.Modal(document.getElementById('exampleModalCenter'), {
+      keyboard: false
+    });
+    // set the employee data to the form
+    // console.log(employee?.data);
+    document.getElementById('establishment_name').value = establisment?.data.establishment_name;
+    document.getElementById('establishment_address').value = establisment?.data.establishment_address;
+    document.getElementById('establishment_default_status').value = establisment?.data.establishment_default_status;
+    document.getElementById('idestablishment_master').value = establisment?.data._id;
+    // show the modal
+    modal.show();
+  }
+
+  document.getElementById('updateform').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const myFormData = new FormData(e.target);
+    let formDataObj = Object.fromEntries(myFormData.entries());
+    let employeeId = formDataObj._id;
+    const response = await fetch(`/employee/update/${employeeId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formDataObj),
+    });
+    const data = await response.json();
+    if (data.success) {
+      alert('Employee updated successfully');
+      window.location.reload();
+    } else {
+      alert('Failed to update employee');
+    }
+  });
+
+</script>
+</html>

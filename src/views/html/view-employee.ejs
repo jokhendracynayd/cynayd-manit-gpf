@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../common/header') %>
+<body>
+  <%- include('../common/nav_bar') %>
+  
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <!-- <div class="card-header bg-transparent">
+              <h3 class="mb-0"> Page Title</h3>
+            </div> -->
+            <div class="card-body">
+                <!-- main content -->
+
+
+                <div class="content-wrapper">
+                  <div class="container-xxl flex-grow-1 container-p-y">
+                      <!-- breadcrumbs -->
+                     <h4 class="fw-bold py-3 mb-4">
+                       <span class="text-muted fw-light"> Home / Employee / </span> View Emplooye
+                     </h4>
+                   <!-- breadcrumbs -->
+
+
+
+                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Update Employee</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" id="updateform">
+                            <input type="hidden" name="_id" id="_id">
+                            <div class="form-group">
+                              <label>Name</label>
+                              <input type="text" class="form-control" id="employee_name" name="employee_name">
+                            </div>
+                            <div class="form-group">
+                              <label> Designation </label>
+                              <input type="text" class="form-control" id="employee_desg" name="employee_desg">
+                            </div>
+                            <div class="form-group">
+                              <label>GPF No</label>
+                              <input type="text" class="form-control" id="employee_gpf_no" name="employee_gpf_no">
+                            </div>
+                            <div class="form-group">
+                              <label> GPF Ledger Status </label>
+                              <select class="form-control" name="gpf_ledger_status" id="gpf_ledger_status">
+                                <option value="acitve">Active</option>
+                                <option value="unactive">Unactive</option>
+                              </select>
+                            </div>
+                            <br>
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <input type="submit" value="Save Change" class="btn btn-primary">
+                            </div>
+                          </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                   
+                   <div class="">
+                     <div class="card-body">
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="datatable">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Employee Id</th>
+                                  <th>Employee Name</th>
+                                  <th>Desgination</th>
+                                  <th>GPF No</th>
+                                  <th>Status</th>
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <% employees.forEach((employee, index) => { %>
+                              <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= employee.employee_id %></td>
+                                <td><%= employee.employee_name %></td>
+                                <td><%= employee.employee_desg %></td>
+                                <td><%= employee.employee_gpf_no %></td>
+                                <td>
+                                  <% if (employee.employee_gpf_ledger_status === 0) { %>
+                                    <span class="badge bg-primary text-white">Active</span>
+                                  <% } else { %>
+                                    <span class="badge bg-danger text-white">Inactive</span>
+                                  <% } %>
+                                </td>
+                                <td>
+                                  <i class="fa-regular fa-pen-to-square" onclick="fetchEmployee('<%= employee._id %>')"></i>
+                                  <!-- <i class="fa-solid fa-pen-to-square"></i> -->
+                                </td>
+                              </tr>
+                            <% }); %>
+                          </tbody>
+                        </table>
+                      
+                        
+                    </div>
+
+
+
+                      </div>
+                     </div>
+                   </div>
+                   <!-- footer area -->
+                   <!-- footer area -->
+                
+       
+                   <div class="content-backdrop fade"></div>
+                 </div>
+
+
+
+
+                <!-- //main content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+      <!-- Footer -->
+   
+</body>
+<%- include('../common/script') %>
+<script>
+  async function fetchEmployee(employeeId) {
+    const response = await fetch(`/employee/${employeeId}`);
+    const employee = await response.json();
+    // now show the model with the employee data
+    let modal = new bootstrap.Modal(document.getElementById('exampleModalCenter'), {
+      keyboard: false
+    });
+    // set the employee data to the form
+    // console.log(employee?.data);
+    document.getElementById('employee_name').value = employee?.data.employee_name;
+    document.getElementById('employee_desg').value = employee?.data.employee_desg;
+    document.getElementById('employee_gpf_no').value = employee?.data.employee_gpf_no;
+    document.getElementById('_id').value = employee?.data._id;
+    if (employee?.data.employee_gpf_ledger_status == 0) {
+      document.getElementById('gpf_ledger_status').value = 'active';
+    } else {
+      document.getElementById('gpf_ledger_status').value = 'unactive';
+    }
+    // show the modal
+    modal.show();
+  }
+
+  document.getElementById('updateform').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const myFormData = new FormData(e.target);
+    let formDataObj = Object.fromEntries(myFormData.entries());
+    let employeeId = formDataObj._id;
+    const response = await fetch(`/employee/update/${employeeId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formDataObj),
+    });
+    const data = await response.json();
+    if (data.success) {
+      alert('Employee updated successfully');
+      window.location.reload();
+    } else {
+      alert('Failed to update employee');
+    }
+  });
+  
+</script>
+</html>
