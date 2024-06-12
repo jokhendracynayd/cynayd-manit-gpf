@@ -58,11 +58,12 @@ app.get("/", (req, res) => {
 });
 
 
-app.post('/generate-pdf', async(req, res) => {
+
+app.post('/generate-pdf', async (req, res) => {
   // Data to fill placeholders
   let {
-    month,
-    year,
+    startmonth,
+    startyear,
     id,
     opening_balance,
     subscription,
@@ -70,52 +71,43 @@ app.post('/generate-pdf', async(req, res) => {
     withdrawal,
     interest_year,
     closing_balance
-  }= req.body;
-  [id,year,month,opening_balance,subscription,refund,withdrawal,interest_year,closing_balance].forEach((item) => {
-    if (!item) {
-      return res.status(400).json(new ApiResponse(400, "Please provide all required fields"));
-    }
-  });
-  let employee = await employee_information.findOne({employee_id:id});
+  } = req.body;
+  const requiredFields = [id, startyear, startmonth, opening_balance, subscription, refund, withdrawal, interest_year, closing_balance];
+  const isMissingField = requiredFields.some(field => !field);
+  if (isMissingField) {
+    return res.status(400).json(new ApiResponse(400, "Please provide all required fields"));
+  }
+
+  let employee = await employee_information.findOne({ employee_id: id });
   if (!employee) {
     return res.status(404).json(new ApiResponse(404, "Employee not found"));
   }
+
   const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
-  let start_month = monthNames[parseInt(month)];
-  let end_month = monthNames[parseInt(month)+1];
+  let start_month = monthNames[parseInt(startmonth)];
+  let end_month = monthNames[parseInt(startmonth) + 1];
+  
   let data = {
-    start_date: `Opening Balance as on 1st ${start_month} ${start_month}`,
-    end_date: `Ending Balance on 31st ${end_month} ${year}`,
-    employee_name:employee.employee_name,
-    employee_designation:employee.employee_desg,
-    employee_gpf_no:employee.employee_gpf_no,
-    employee_opening_balance:opening_balance,
-    employee_gpf_subscriptions:subscription,
-    employee_recovery:refund,
-    employee_interest:interest_year,
-    employee_total:closing_balance,
-    employee_withdrawal:withdrawal,
-    employee_closing_balance:closing_balance,
+    start_date: `Opening Balance as on 1st ${start_month} ${startyear}`,
+    end_date: `Ending Balance on 31st ${end_month} ${startyear}`,
+    employee_name: employee.employee_name,
+    employee_designation: employee.employee_desg,
+    employee_gpf_no: employee.employee_gpf_no,
+    employee_opening_balance: opening_balance,
+    employee_gpf_subscriptions: subscription,
+    employee_recovery: refund,
+    employee_interest: interest_year,
+    employee_total: closing_balance,
+    employee_withdrawal: withdrawal,
+    employee_closing_balance: closing_balance,
   };
 
   // Render the layout with dynamic content
-  res.render('layout', {data});
+  return res.render('layout', { data });
 });
-
-
 
 app.use("/employee", employeeRouter);
 app.use("/establishment", establishmentRouter);
@@ -124,8 +116,6 @@ app.use("/gpf-sub-types", gpfSubTypes);
 app.use("/gpf-interest-rates", gpfInterestRate);
 app.use('/users',loginRoutes);
 app.use("/gpf-calculation", gpfCalculation);
-
-import {generateRegistrationOptions} from '@simplewebauthn/server'
 
 app.get("/login", (req, res) => {
   if (req.query.error) {
@@ -375,10 +365,11 @@ app.get("/gpf-interest-rate", async (req, res) => {
 });
 
 app.all("*", (req, res, next) => {
-  const err = new Error(`Can't find ${req.originalUrl} on this server`);
-  err.status = "fail";
-  err.statusCode = 404;
-  next(err);
+  // const err = new Error(`Can't find ${req.originalUrl} on this server`);
+  // err.status = "fail";
+  // err.statusCode = 404;
+  // next(err);
+  return res.redirect("/");
 }); // This is the catch all route handler
 
 app.use(globalErrorHandler); // This is the error handler middleware

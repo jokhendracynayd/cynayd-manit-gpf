@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statement</title>
+  <style>
+    .container {
+      max-width: 95%;
+      margin: 0 auto;
+      border: 2px solid #000;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      /* margin-bottom: 10px; */
+    }
+    header img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-right: 35px;
+    }
+    .header-content {
+      text-align: center;
+      width: 92%;
+    }
+    .employee-details {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .employee-details-head {
+      text-align: center;
+      /* margin-bottom: 10px; */
+    }
+    .employee-details-head h2 {
+      font-size: 1.5em;
+      text-decoration: underline;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .coloum {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 30%;
+    }
+    .main-body {
+      padding: 20px;
+      margin: 0 auto;
+    }
+    .responsive-table table thead {
+      background-color: rgba(77, 180, 206, 0.87);
+    }
+    .total-row {
+      font-weight: bold;
+    }
+    .month-text {
+      font-weight: 500;
+      font-size: medium;
+    }
+    th,
+    td {
+      padding: 5px 5px;
+    }
+    .summary-section {
+      width: 100%;
+      /* margin-top: 20px; */
+      display: flex;
+      justify-content: start;
+      flex-direction: column;
+    }
+    .summary-content {
+      border: 1px solid #000;
+      margin-left: 20px;
+      /* margin-bottom: 20px; */
+      border-radius: 5px;
+      padding: 10px;
+      width: 22%;
+    }
+    .content-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* margin-bottom: 5px; */
+    }
+    .amount-text {
+      font-weight: bold;
+    }
+
+    @media print {
+      #printer {
+        display: none;
+      }
+      body {
+        width: 100%;
+      }
+      .container {
+        max-width: 100%;
+        margin: 0;
+        border: none;
+      }
+      header {
+        margin-bottom: 5px;
+      }
+      header img {
+        width: 50px;
+        height: 50px;
+      }
+      .header-content h1 {
+        font-size: 16px;
+      }
+      .employee-details {
+        width: 85%;
+      }
+      .employee-details-head h2 {
+        font-size: 1.2em;
+      }
+      .coloum {
+        width: 45%;
+      }
+      th,
+      td {
+        padding: 2px 2px;
+        font-size: 12px;
+      }
+      .summary-section {
+        margin-top: 5px !important;
+      }
+      .summary-content {
+        width: 95%;
+        margin-left: 0;
+        padding: 5px;
+      }
+      .summary-content .content-item span {
+        font-size: 12px;
+      }
+      .summary-content .amount-text {
+        font-size: 12px;
+      }
+      .summary-content .amount-text {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div
+      style="display: flex; justify-content: end; cursor: pointer"
+      id="printer"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/159/159287.png"
+        width="15"
+        height="15"
+        style="object-fit: contain"
+      />
+    </div>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1 style="text-decoration: underline;margin-bottom: -13px;">Maulana Azad National Institute Of Technology</h1>
+        <h1 style="text-decoration: underline;">Bhopal-462003(M.P.)</h1>
+      </div>
+      <img src="https://upload.wikimedia.org/wikipedia/en/4/4f/Maulana_Azad_National_Institute_of_Technology_Logo.png"
+        alt="">
+    </header>
+    <hr>
+    <section class="employee-details">
+      <div class="employee-details-head">
+        <h2 style="margin-bottom: -10px;">GPF Statement</h2>
+        <h2>For Financial Year -<span>2023-24</span></h2>
+      </div>
+      <div class="employee-details-body">
+        <div class="row">
+          <div class="coloum">
+            <h4>Name of Employee:-</h4>
+            <h4><%= employeeSession.employee_name %></h4>
+          </div>
+          <div class="coloum">
+            <h4>Date:-</h4>
+            <h4>01/10/2024</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="coloum">
+            <h4>Desgination:-</h4>
+            <h4><%= employeeSession.employee_desg %></h4>
+          </div>
+          <div class="coloum">
+            <h4>GPF No:-</h4>
+            <h4><%= employeeSession.employee_gpf_no %></h4>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div style="display: flex; justify-content: center;align-items: center;">
+      <main class="main-body">
+        <div class="responsive-table">
+          <table border="2" style="border-collapse: collapse; text-align: center;border-radius: 5px;">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>GPF Subscription</th>
+                <th>Refund of GPF Advance</th>
+                <th>GPF Arrears</th>
+                <th>Withdrawal</th>
+                <th>Net Amount</th>
+                <th>Progressive Total</th>
+                <th>Interst Rate</th>
+                <th>Interest Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="6" style="font-weight: bold; font-size: medium;padding: 5px 0px;">Opening Balance On 1-02-2024</td>
+                <td colspan="3" style="font-weight: bold; font-size: medium;padding: 5px 0px;"><%= employeeSession.opening_balance %></td>
+              </tr>
+              <% employeeSession.totalMonthsData.forEach(function(item) { %>
+                <tr>
+                  <td><%= item.month %></td>
+                  <td><%= item['Salary-GPF Subscription'] %></td>
+                  <td><%= item['GPF-Refund'] %></td>
+                  <td><%= item['Arrear-GPF Deduction'] %></td>
+                  <td><%= item['GPF-Withdrawal'] %></td>
+                  <td><%= item.netAmount %></td>
+                  <td><%= item.progressiveTotal %></td>
+                  <td><%= item.interestRate %></td>
+                  <td><%= item.interest %></td>
+                </tr>
+              <% }); %>
+              <tr>
+                <td class="total-row">Total</td>
+                <td class="total-row"><%= employeeSession.totalSubscription %></td>
+                <td class="total-row"><%= employeeSession.totalRefund %></td>
+                <td class="total-row">-</td>
+                <td class="total-row"><%= employeeSession.totalWithdrawal %></td>
+                <td class="total-row">-</td>
+                <td class="total-row">-</td>
+                <td class="total-row">-</td>
+                <td class="total-row"><%= employeeSession.interest %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <section class="summary-section">
+      <h2 style="margin-left: 22px;margin-bottom: 0px;font-size: large;">Summary of Above</h2>
+      <div class="summary-content">
+        <div class="content-item">
+          <span>Opening Balance:-</span>
+          <span class="amount-text"> <%= employeeSession.opening_balance %></span>
+        </div>
+        <div class="content-item">
+          <span>Add GPF Arrears:-</span>
+          <span class="amount-text">-</span>
+        </div>
+        <div class="content-item">
+          <span>Add GPF Subscription:-</span>
+          <span class="amount-text"> <%= employeeSession.totalSubscription %></span>
+        </div>
+        <div class="content-item">
+          <span>Add Refund of GPF Advance:-</span>
+          <span class="amount-text"> <%= employeeSession.totalRefund %></span>
+        </div>
+        <div class="" style="margin-top: 10px; margin-bottom: 10px;display:flex; justify-content: end;">
+          <span style="display: inline-block;margin-right: 35px;font-weight: bold;">A Total</span>
+          <span class="amount-text"> <%= Number(employeeSession.opening_balance) + Number(employeeSession.totalSubscription) + Number(employeeSession.totalRefund) %>
+          </span>
+        </div>
+        <div class="content-item">
+          <span>LessAdvance Sanctioned:-</span>
+          <span class="amount-text">-</span>
+        </div>
+        <div class="content-item">
+          <span>LessPart Final Withdrawal:-</span>
+          <span class="amount-text"> <%= employeeSession.totalWithdrawal %></span>
+        </div>
+        <div class="" style="margin-top: 10px; margin-bottom: 10px;display:flex; justify-content: end;">
+          <span style="display: inline-block;margin-right: 35px;font-weight: bold;">B Total</span>
+          <span class="amount-text"> <%= employeeSession.totalWithdrawal %></span>
+        </div>
+        <div class="" style="margin-top: 10px; margin-bottom: 10px;display:flex; justify-content: end;">
+          <span style="display: inline-block;margin-right: 35px;font-weight: bold;">Net Amount (A-B)</span>
+          <span class="amount-text"> <%= Number(employeeSession.opening_balance) + Number(employeeSession.totalSubscription) + Number(employeeSession.totalRefund) - Number(employeeSession.totalWithdrawal) %>
+          </span>
+        </div>
+        <div class="content-item">
+          <span>Add Interst:-</span>
+          <span class="amount-text"> <%= employeeSession.interest %></span>
+        </div>
+        <hr>
+        <div class="content-item">
+          <span style="font-weight: bold;">Closing Balance:-</span>
+          <span class="amount-text"> <%= employeeSession.closing_balance%></span>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+<script>
+  document.getElementById("printer").addEventListener("click", function () {
+    window.print();
+  });
+</script>
+</html>

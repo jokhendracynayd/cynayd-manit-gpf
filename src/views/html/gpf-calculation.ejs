@@ -54,7 +54,7 @@
                               <div class="row">
                                 <div class="col-3">
                                   <div class="mb-3 d-flex">
-                                    <input type="search" name="" id="search" placeholder="serach by name or gpf no"
+                                    <input type="search" name="" autocomplete="off" id="search" placeholder="serach by name or gpf no"
                                       class="form-control w-75" id="">
                                     <button class="btn ml-1 btn-sm btn-primary w-25"><i
                                         class="fa-solid fa-magnifying-glass"></i></button>
@@ -80,7 +80,7 @@
                                               <%= employee.employee_id %>
                                             </td>
                                             <td>
-                                              <%= employee.employee_name %></a>
+                                              <%= employee.employee_name %>
                                             </td>
                                           </tr>
                                           <% }); %>
@@ -90,7 +90,7 @@
 
                                 </div>
                                 <div class="col-9">
-                                  <form action="/generate-pdf" method="post">
+                                  <form action="/gpf-calculation/generate-gpf-statement" method="post">
                                     <div class="row">
                                       <div class="col-6 d-flex align-items-center">
                                         <input type="checkbox" onclick="enableStart()" class="form-check-input" name=""
@@ -102,7 +102,7 @@
                                           <option value="1">January</option>
                                           <option value="2">February</option>
                                           <option value="3">March</option>
-                                          <option value="4">April</option>
+                                          <option value="4" selected>April</option>
                                           <option value="5">May</option>
                                           <option value="6">June</option>
                                           <option value="7">July</option>
@@ -124,7 +124,7 @@
                                           <option value="2021">2021</option>
                                           <option value="2022">2022</option>
                                           <option value="2023">2023</option>
-                                          <option value="2024">2024</option>
+                                          <option value="2024" selected>2024</option>
                                           <option value="2025">2025</option>
                                           <option value="2026">2026</option>
                                           <option value="2027">2027</option>
@@ -147,7 +147,7 @@
                                           <option value="2">February</option>
                                           <option value="3">March</option>
                                           <option value="4">April</option>
-                                          <option value="5">May</option>
+                                          <option value="5" selected>May</option>
                                           <option value="6">June</option>
                                           <option value="7">July</option>
                                           <option value="8">August</option>
@@ -168,7 +168,7 @@
                                           <option value="2021">2021</option>
                                           <option value="2022">2022</option>
                                           <option value="2023">2023</option>
-                                          <option value="2024">2024</option>
+                                          <option value="2024" selected>2024</option>
                                           <option value="2025">2025</option>
                                           <option value="2026">2026</option>
                                           <option value="2027">2027</option>
@@ -269,7 +269,6 @@
                                       <div class="container d-flex justify-content-end">
                                         <button class="btn btn-secondary" disabled id="printpreview">Print
                                           Preview</button>
-
                                       </div>
                                     </div>
                                   </form>
