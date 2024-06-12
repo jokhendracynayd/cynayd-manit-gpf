@@ -1737,7 +1737,7 @@ export let data = [
   }
 ]
 
-// console.log(data.length);
+console.log(data.length);
 
 
 for (let item of data){

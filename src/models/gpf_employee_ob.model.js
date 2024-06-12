@@ -4,6 +4,7 @@ const counterSchema = new mongoose.Schema({
   employee_id:{
     type: String,
     required: true,
+    unique: true,
   },
   employee_name:{
     type: String,
@@ -12,6 +13,7 @@ const counterSchema = new mongoose.Schema({
   employee_gpf_no:{
     type: String,
     required: true,
+    unique: true,
   },
   employee_ob_amount:{
     type:Number,

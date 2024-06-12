@@ -152,7 +152,9 @@ app.get('/upload-xlsx-file', (req, res) => {
 import xlsx from "xlsx";
 
 
-app.get('/upload-file',(req,res)=>{
+import employeeOBModel from "./models/gpf_employee_ob.model.js"
+
+app.get('/upload-file',async(req,res)=>{
   // read file form public folder
   const workbook = xlsx.readFile('./src/uploads/sample.xlsx');
   // Assuming there's only one sheet, get its name
@@ -171,7 +173,25 @@ app.get('/upload-file',(req,res)=>{
   // For example, you can store it in a database, perform additional operations, etc.
   // Send a response indicating that the file was uploaded and processed
   // return res.json({ message: 'File uploaded and processed successfully', data: processedData });
-  return res.json({processedData});
+  let newArray = [];
+  for (let item of processedData) {
+    if(item["S.No"]==="Sr.No." || item["S.No"]==="S.No"){
+      continue;
+    }
+    newArray.push(item);
+  }
+  // for (let item of newArray) {
+  //   let employee = new employeeOBModel({
+  //     employee_id: item["GPF No."],
+  //     employee_name: item["Employee Name"],
+  //     employee_gpf_no: item["GPF No."],
+  //     year:"2024",
+  //     month:"03",
+  //     employee_ob_amount: item["CBAL"],
+  //   });
+  //   await employee.save();
+  // }
+  return res.json({newArray});
 })
 
 app.post("/upload", upload, (req, res) => {
